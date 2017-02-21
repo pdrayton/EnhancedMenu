@@ -7,4 +7,5 @@ select( 2, ... ).L = setmetatable({
 	COPY_NAME = "Cкопировать никнейм",
 	SEND_WHO = "Информация",
 	ARMORY_URL = "Ссылка в Оружейной",
+	PUGBOT_COMMAND = "Pugbot",
 }, { __index = select(2, ... ).L})

@@ -4,6 +4,7 @@ select( 2, ... ).L = setmetatable({
 	COPY_NAME = "Copy Name",
 	SEND_WHO = "Who",
 	ARMORY_URL = "Armory",
+	PUGBOT_COMMAND = "Pugbot",
 }, {
 	__index = function(self, Key)
 		if (Key ~= nil) then

@@ -53,6 +53,12 @@ UnitPopupButtons["ARMORY_URL"] = {
 	dist = 0
 }
 
+UnitPopupButtons["PUGBOT_COMMAND"] = {
+	text = L.PUGBOT_COMMAND,
+	value = "PUGBOT_COMMAND",
+	dist = 0
+}
+
 -------------------------------------------------------
 -- "which" for specific button
 -------------------------------------------------------
@@ -87,6 +93,19 @@ EnhancedMenu_ButtonSet["SEND_WHO"] = {
 }
 
 EnhancedMenu_ButtonSet["ARMORY_URL"] = {
+	["SELF"] = true,
+	["PARTY"] = true,
+	["PLAYER"] = true,
+	["RAID"] = true,
+	["RAID_PLAYER"] = true,
+	["FRIEND"] = true,
+	["FRIEND_OFFLINE"] = true,
+	["CHAT_ROSTER"] = true,
+	["GUILD"] = true,
+	["GUILD_OFFLINE"] = true,
+}
+
+EnhancedMenu_ButtonSet["PUGBOT_COMMAND"] = {
 	["SELF"] = true,
 	["PARTY"] = true,
 	["PLAYER"] = true,
@@ -172,6 +191,23 @@ local function showArmoryURL(fullName)
 	editBox:HighlightText()
 end
 
+local function showPugbotCommand(fullName)
+	local name, server = string.split("-", fullName)
+	if not name or name == "" then return end
+	name = string.gsub(name, " ", "-") -- replace space with - for !pug
+	if not server or server == "" then -- offline, set to current server
+		server = GetRealmName()
+	end
+	local region = string.lower(LCR:GetCurrentRegion())
+	local pugbot = "!pug "..name.." "..server.." "..region
+	
+	local editBox = ChatEdit_ChooseBoxForSend()
+	ChatEdit_ActivateChat(editBox)
+	editBox:SetText(pugbot)
+	editBox:SetCursorPosition(0)
+	editBox:HighlightText()
+end
+
 local function showName(fullName)	  -- FriendsMenuXP
 	if ( SendMailNameEditBox and SendMailNameEditBox:IsVisible() ) then
 		SendMailNameEditBox:SetText(fullName)
@@ -233,6 +269,8 @@ local function ToggleEnhancedDropDownMenu(funcName, btnName)
 					info.func = function(self) showName(self.value) end
 				elseif funcName == "ARMORY_URL" then
 					info.func = function(self) showArmoryURL(self.value) end
+				elseif funcName == "PUGBOT_COMMAND" then
+					info.func = function(self) showPugbotCommand(self.value) end
 				end
 				
 				UIDropDownMenu_AddButton(info, level)
@@ -298,7 +336,13 @@ function UnitPopup_OnClick(self)
 			showArmoryURL(pName)	-- only 1 WoW account available
 		end
 		return
-	end
+	elseif self.value == "PUGBOT_COMMAND" then
+		if numValidGameAccounts > 1 then
+			ToggleEnhancedDropDownMenu("PUGBOT_COMMAND", L.PUGBOT_COMMAND)
+		else
+			showPugbotCommand(pName)	-- only 1 WoW account available
+		end
+		returnend
 	
 	Original_UnitPopup_OnClick(self)
 end
@@ -342,6 +386,7 @@ function FriendsFrame_ShowBNDropdown(name, connected, lineID, chatType, chatFram
 					table.insert(UnitPopupMenus["BN_FRIEND"], #UnitPopupMenus["BN_FRIEND"], "GUILD_INVITE")
 					table.insert(UnitPopupMenus["BN_FRIEND"], #UnitPopupMenus["BN_FRIEND"], "COPY_NAME")
 					table.insert(UnitPopupMenus["BN_FRIEND"], #UnitPopupMenus["BN_FRIEND"], "ARMORY_URL")
+					table.insert(UnitPopupMenus["BN_FRIEND"], #UnitPopupMenus["BN_FRIEND"], "PUGBOT_COMMAND")
 					table.insert(UnitPopupMenus["BN_FRIEND"], #UnitPopupMenus["BN_FRIEND"], "SUBSECTION_SEPARATOR")
 				end
 		elseif buttonIndex then	-- no available WoW account
@@ -391,6 +436,14 @@ EnhancedMenu_Premade["ARMORY_URL"] = {
 	disabled = nil, --Disabled if we don't have a leader name yet
 }
 
+EnhancedMenu_Premade["PUGBOT_COMMAND"] = {
+	text = L.PUGBOT_COMMAND,
+	func = function(_, name) showPugbotCommand(name) end,
+	notCheckable = true,
+	arg1 = nil, --Leader name goes here
+	disabled = nil, --Disabled if we don't have a leader name yet
+}
+
 --if necessary, add it later
 EnhancedMenu_Premade["COPY_NAME"] = {
 	text = L.COPY_NAME,
@@ -434,7 +487,14 @@ local LFG_LIST_SEARCH_ENTRY_MENU = {
 		arg1 = EnhancedMenu_Premade["ARMORY_URL"].arg1,
         disabled = EnhancedMenu_Premade["ARMORY_URL"].disabled,
     },
-    {
+	{	-- PUGBOT_COMMAND
+        text = EnhancedMenu_Premade["PUGBOT_COMMAND"].text,
+		func = EnhancedMenu_Premade["PUGBOT_COMMAND"].func,
+		notCheckable = EnhancedMenu_Premade["PUGBOT_COMMAND"].notCheckable,
+		arg1 = EnhancedMenu_Premade["PUGBOT_COMMAND"].arg1,
+        disabled = EnhancedMenu_Premade["PUGBOT_COMMAND"].disabled,
+    },
+	{
         text = LFG_LIST_REPORT_GROUP_FOR,
 		hasArrow = true,
 		notCheckable = true,
@@ -525,7 +585,14 @@ local LFG_LIST_APPLICANT_MEMBER_MENU = {
 		arg1 = EnhancedMenu_Premade["ARMORY_URL"].arg1,
         disabled = EnhancedMenu_Premade["ARMORY_URL"].disabled,
     },
-    {
+    {	-- PUGBOT_COMMAND
+        text = EnhancedMenu_Premade["PUGBOT_COMMAND"].text,
+		func = EnhancedMenu_Premade["PUGBOT_COMMAND"].func,
+		notCheckable = EnhancedMenu_Premade["PUGBOT_COMMAND"].notCheckable,
+		arg1 = EnhancedMenu_Premade["PUGBOT_COMMAND"].arg1,
+        disabled = EnhancedMenu_Premade["PUGBOT_COMMAND"].disabled,
+    },    
+	{
 		text = LFG_LIST_REPORT_FOR,
 		hasArrow = true,
 		notCheckable = true,
