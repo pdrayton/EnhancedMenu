@@ -6,5 +6,5 @@ select( 2, ... ).L = setmetatable({
 	COPY_NAME = "複製名字",
 	SEND_WHO = "查詢",
 	ARMORY_URL = "英雄榜",
-	PUGBOT_COMMAND = "Pugbot",
+	PUGBOT_COMMAND = "PugBot",
 }, { __index = select(2, ... ).L})

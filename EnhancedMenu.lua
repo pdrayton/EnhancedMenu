@@ -553,15 +553,17 @@ function LFGListUtil_GetSearchEntryMenu(resultID)
 	-- add our menu(s)
     LFG_LIST_SEARCH_ENTRY_MENU[3].arg1 = leaderName;
     LFG_LIST_SEARCH_ENTRY_MENU[3].disabled = not leaderName;
+    LFG_LIST_SEARCH_ENTRY_MENU[4].arg1 = leaderName;
+    LFG_LIST_SEARCH_ENTRY_MENU[4].disabled = not leaderName;
 	-------------------------------------------------------
 	
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[1].arg1 = resultID;
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[2].arg1 = resultID;
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[2].disabled = (comment == "");
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[3].arg1 = resultID;
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[3].disabled = (voiceChat == "");
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[4].arg1 = resultID;
-    LFG_LIST_SEARCH_ENTRY_MENU[4].menuList[4].disabled = not leaderName;
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[1].arg1 = resultID;
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[2].arg1 = resultID;
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[2].disabled = (comment == "");
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[3].arg1 = resultID;
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[3].disabled = (voiceChat == "");
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[4].arg1 = resultID;
+    LFG_LIST_SEARCH_ENTRY_MENU[5].menuList[4].disabled = not leaderName;
     return LFG_LIST_SEARCH_ENTRY_MENU;
 end
 
