@@ -198,7 +198,7 @@ local function showPugbotCommand(fullName)
 	if not server or server == "" then -- offline, set to current server
 		server = GetRealmName()
 	end
-	local region = string.lower(LCR:GetCurrentRegion())
+	local region = LCR:GetCurrentRegion()
 	local pugbot = "!pug "..name.." "..server.." "..region
 	
 	local editBox = ChatEdit_ChooseBoxForSend()
@@ -342,8 +342,9 @@ function UnitPopup_OnClick(self)
 		else
 			showPugbotCommand(pName)	-- only 1 WoW account available
 		end
-		returnend
-	
+		return
+	end
+
 	Original_UnitPopup_OnClick(self)
 end
 
