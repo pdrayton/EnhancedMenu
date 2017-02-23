@@ -194,7 +194,7 @@ end
 local function showPugbotCommand(fullName)
 	local name, server = string.split("-", fullName)
 	if not name or name == "" then return end
-	name = string.gsub(name, " ", "-") -- replace space with - for !pug
+	server = string.gsub(server, " ", "-") -- replace space with - for !pug
 	if not server or server == "" then -- offline, set to current server
 		server = GetRealmName()
 	end
