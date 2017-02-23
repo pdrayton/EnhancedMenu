@@ -641,14 +641,16 @@ function LFGListUtil_GetApplicantMemberMenu(applicantID, memberIdx)
 	-- add our menu(s)
     LFG_LIST_APPLICANT_MEMBER_MENU[3].arg1 = name;
     LFG_LIST_APPLICANT_MEMBER_MENU[3].disabled = not name or (status ~= "applied" and status ~= "invited");
+    LFG_LIST_APPLICANT_MEMBER_MENU[4].arg1 = name;
+    LFG_LIST_APPLICANT_MEMBER_MENU[4].disabled = not name or (status ~= "applied" and status ~= "invited");
 	-------------------------------------------------------
 	
-    LFG_LIST_APPLICANT_MEMBER_MENU[4].menuList[1].arg1 = applicantID;
-    LFG_LIST_APPLICANT_MEMBER_MENU[4].menuList[1].arg2 = memberIdx;
-    LFG_LIST_APPLICANT_MEMBER_MENU[4].menuList[2].arg1 = applicantID;
-    LFG_LIST_APPLICANT_MEMBER_MENU[4].menuList[2].disabled = (comment == "");
-    LFG_LIST_APPLICANT_MEMBER_MENU[5].arg1 = name;
-    LFG_LIST_APPLICANT_MEMBER_MENU[5].arg2 = applicantID;
-    LFG_LIST_APPLICANT_MEMBER_MENU[5].disabled = not name;
+    LFG_LIST_APPLICANT_MEMBER_MENU[5].menuList[1].arg1 = applicantID;
+    LFG_LIST_APPLICANT_MEMBER_MENU[5].menuList[1].arg2 = memberIdx;
+    LFG_LIST_APPLICANT_MEMBER_MENU[5].menuList[2].arg1 = applicantID;
+    LFG_LIST_APPLICANT_MEMBER_MENU[5].menuList[2].disabled = (comment == "");
+    LFG_LIST_APPLICANT_MEMBER_MENU[6].arg1 = name;
+    LFG_LIST_APPLICANT_MEMBER_MENU[6].arg2 = applicantID;
+    LFG_LIST_APPLICANT_MEMBER_MENU[6].disabled = not name;
     return LFG_LIST_APPLICANT_MEMBER_MENU;
 end
